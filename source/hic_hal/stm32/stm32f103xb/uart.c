@@ -108,17 +108,21 @@ int32_t uart_initialize(void)
     // GPIO_InitStructure.Pull = GPIO_PULLUP;
     // HAL_GPIO_Init(UART_CTS_PORT, &GPIO_InitStructure);
     //RTS pin, output low
+#if (ENABLE_JTAG == 0)
     HAL_GPIO_WritePin(UART_RTS_PORT, UART_RTS_PIN, GPIO_PIN_RESET);
     GPIO_InitStructure.Pin = UART_RTS_PIN;
     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(UART_RTS_PORT, &GPIO_InitStructure);
+#endif
     //DTR pin, output low
+#if (ENABLE_JTAG == 0)
     HAL_GPIO_WritePin(UART_DTR_PORT, UART_DTR_PIN, GPIO_PIN_RESET);
     GPIO_InitStructure.Pin = UART_DTR_PIN;
     GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStructure.Mode = GPIO_MODE_OUTPUT_PP;
     HAL_GPIO_Init(UART_DTR_PORT, &GPIO_InitStructure);
+#endif
 
     NVIC_EnableIRQ(CDC_UART_IRQn);
 
