@@ -101,6 +101,7 @@ PROJECT_RELEASE_INFO = [
     ('max32625_max78000fthr_if',                    False,      0x0000,     "bin"       ),
     ('max32625_max32670evkit_if',                   False,      0x0000,     "bin"       ),
     ('max32625_max32650fthr_if',                    False,      0x0000,     "bin"       ),
+    ('max32625_max32690evkit_if',                   False,      0x0000,     "bin"       ),
     ('kl26z_if',                                    False,      0x0000,     "bin"       ),
     ('k20dx_if',                                    False,      0x0000,     "bin"       ),
     ('k26f_if',                                     False,      0x0000,     "bin"       ),
@@ -182,6 +183,7 @@ SUPPORTED_CONFIGURATIONS = [
     (   0x0423,     VENDOR_TO_FAMILY('Stub', 1),        'max32625_max78000fthr_if',                 'max32625_bl',      'MAX78000'                              ),
     (   0x0424,     VENDOR_TO_FAMILY('Stub', 1),        'max32625_max32670evkit_if',                'max32625_bl',      'MAX32670'                              ),
     (   0x0425,     VENDOR_TO_FAMILY('Stub', 1),        'max32625_max32650fthr_if',                 'max32625_bl',      'MAX32650'                              ),
+    (   0x0426,     VENDOR_TO_FAMILY('Stub', 1),        'max32625_max32690evkit_if',                'max32625_bl',      'MAX32690'                              ),
     (   0x0700,     VENDOR_TO_FAMILY('Stub', 1),        'stm32f103xb_stm32f103rb_if',               'stm32f103xb_bl',   'ST-Nucleo-F103RB'                      ),
     (   0x0720,     VENDOR_TO_FAMILY('Stub', 1),        'stm32f103xb_stm32f401re_if',               'stm32f103xb_bl',   'ST-Nucleo-F401RE'                      ),
     (   0x0720,     VENDOR_TO_FAMILY('Stub', 1),        'stm32f103xb_stm32f072rb_if',               'stm32f103xb_bl',   'ST-Nucleo-F072RB'                      ),
@@ -218,6 +220,8 @@ SUPPORTED_CONFIGURATIONS = [
     (   0x1313,     VENDOR_TO_FAMILY('Stub', 3),        'm48ssidae_numaker_iot_m467_if',            'm48ssidae_bl',     None                                    ),
     (   0x2600,     VENDOR_TO_FAMILY('Nordic', 2),      'k20dx_ep_agora_if',                        None,               None                                    ),
     (   0x2601,     VENDOR_TO_FAMILY('NXP', 0),         'k20dx_ep_kairos_if',                       None,               None                                    ),
+    (   0x4337,     VENDOR_TO_FAMILY('Stub', 1),        'lpc4322_lpc4337xpresso_if',                'lpc4322_bl',       'LPCXpresso4337'                        ),
+    (   0x4367,     VENDOR_TO_FAMILY('Stub', 1),        'lpc4322_lpc4367xpresso_if',                'lpc4322_bl',       'LPCXpresso4367'                        ),
     (   0x4600,     VENDOR_TO_FAMILY('Realtek', 1),     'lpc11u35_rtl8195am_if',                    None,               'REALTEK-RTL8195AM'                     ),
     (   0x5006,     VENDOR_TO_FAMILY('Stub', 1),        'lpc11u35_musca_a_if',                      None,               'ARM_MUSCA_A1'                          ),
     (   0x5007,     VENDOR_TO_FAMILY('Stub', 1),        'lpc11u35_musca_b_if',                      None,               'ARM_MUSCA_B1'                          ),
@@ -315,6 +319,7 @@ BOARD_ID_SUPPORTING_PAGE_ERASE = set([
     0x0423,  # MAX78000FTHR
     0x0424,  # MAX32670EVKIT
     0x0425,  # MAX32650FTHR
+    0x0426,  # MAX32690EVKIT
     0x0460,  # WISE-1570
     0x1101,  # Nordic-nRF52-DK
     0x1102,  # Nordic-nRF52840-DK
