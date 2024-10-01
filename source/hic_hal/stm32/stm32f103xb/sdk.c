@@ -20,6 +20,7 @@
  */
 
 #include "stm32f1xx.h"
+#include "air32f10x_rcc_ex.h"
 #include "DAP_config.h"
 #include "gpio.h"
 #include "daplink.h"
@@ -160,15 +161,15 @@ void sdk_init()
     while (RCC_GetFlagStatus(((uint8_t)0x31)) == RESET);
     //RCC_PLLCmd(DISABLE);
     *(__IO uint32_t *) (PERIPH_BB_BASE + ((RCC_OFFSET + 0x00) * 32) + (PLLON_BitNumber * 4)) = (uint32_t)0;
-    //AIR_RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_27, 1); //配置PLL,8*27=216MHz
+    //AIR_RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_27, 1); //配置 PLL,8*27=216MHz
     AIR_RCC_PLLConfig(((uint32_t)0x00010000), ((uint32_t)0x10280000), 1);
 
-    //RCC_PLLCmd(ENABLE); //使能PLL
+    //RCC_PLLCmd(ENABLE); //使能 PLL
     *(__IO uint32_t *) (PERIPH_BB_BASE + ((RCC_OFFSET + 0x00) * 32) + (PLLON_BitNumber * 4)) = (uint32_t)1;
 	while (RCC_GetFlagStatus(((uint8_t)0x39)) == RESET)
-		; //等待PLL就绪
+		; //等待 PLL 就绪
     
-    //RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); //选择PLL作为系统时钟
+    //RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK); //选择 PLL 作为系统时钟
 uint32_t tmpreg = 0;
   /* Check the parameters */
   tmpreg = RCC->CFGR;
@@ -179,7 +180,7 @@ uint32_t tmpreg = 0;
   /* Store the new value */
   RCC->CFGR = tmpreg;
 
-  //RCC_HCLKConfig(RCC_SYSCLK_Div1); //配置AHB时钟
+  //RCC_HCLKConfig(RCC_SYSCLK_Div1); //配置 AHB 时钟
   tmpreg = 0;
   tmpreg = RCC->CFGR;
   /* Clear HPRE[3:0] bits */
@@ -188,7 +189,7 @@ uint32_t tmpreg = 0;
   tmpreg |= ((uint32_t)0x00000000);
   /* Store the new value */
   RCC->CFGR = tmpreg;
-  //RCC_PCLK1Config(RCC_HCLK_Div2);	 //配置APB1时钟
+  //RCC_PCLK1Config(RCC_HCLK_Div2);	 //配置 APB1 时钟
 tmpreg = 0;
   tmpreg = RCC->CFGR;
   /* Clear PPRE1[2:0] bits */
@@ -197,7 +198,7 @@ tmpreg = 0;
   tmpreg |= ((uint32_t)0x00000400);
   /* Store the new value */
   RCC->CFGR = tmpreg;
-  //RCC_PCLK2Config(RCC_HCLK_Div1);	 //配置APB2时钟
+  //RCC_PCLK2Config(RCC_HCLK_Div1);	 //配置 APB2 时钟
     tmpreg = 0;
   tmpreg = RCC->CFGR;
   /* Clear PPRE2[2:0] bits */
@@ -210,10 +211,10 @@ tmpreg = 0;
     //RCC_LSICmd(ENABLE); //使能内部低速时钟
     *(__IO uint32_t *) CSR_LSION_BB = (uint32_t)1;
 	while (RCC_GetFlagStatus(((uint8_t)0x61)) == RESET)
-		;				//等待LSI就绪
+		;				//等待 LSI 就绪
     *(__IO uint32_t *) CR_HSION_BB = (uint32_t)1;
 	while (RCC_GetFlagStatus(((uint8_t)0x21)) == RESET)
-		; //等待HSI就绪
+		; //等待 HSI 就绪
 }
 
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)

@@ -26,7 +26,7 @@
  /* Alias word address of PLL3ON bit */
  #define PLL3ON_BitNumber          0x1C
  #define CR_PLL3ON_BB              (PERIPH_BB_BASE + (CR_OFFSET * 32) + (PLL3ON_BitNumber * 4))
-#endif /* air32F10X_CL */ 
+#endif /* air32F10X_CL */
 
 /* Alias word address of CSSON bit */
 #define CSSON_BitNumber           0x13
@@ -43,7 +43,7 @@
 #else
  #define OTGFSPRE_BitNumber        0x16
  #define CFGR_OTGFSPRE_BB          (PERIPH_BB_BASE + (CFGR_OFFSET * 32) + (OTGFSPRE_BitNumber * 4))
-#endif /* air32F10X_CL */ 
+#endif /* air32F10X_CL */
 
 /* --- BDCR Register ---*/
 
@@ -86,11 +86,11 @@
 #define CR_HSITRIM_Mask           ((volatile uint32_t)0xFFFFFF07)
 
 /* CFGR register bit mask */
-#if defined (air32F10X_LD_VL) || defined (air32F10X_MD_VL) || defined (air32F10X_HD_VL) || defined (air32F10X_CL) 
+#if defined (air32F10X_LD_VL) || defined (air32F10X_MD_VL) || defined (air32F10X_HD_VL) || defined (air32F10X_CL)
  #define CFGR_PLL_Mask            ((volatile uint32_t)0xFFC2FFFF)
 #else
  #define CFGR_PLL_Mask            ((volatile uint32_t)0xFFC0FFFF)
-#endif /* air32F10X_CL */ 
+#endif /* air32F10X_CL */
 
 #define CFGR_PLLMull_Mask         ((volatile uint32_t)0x003C0000)
 #define CFGR_PLLSRC_Mask          ((volatile uint32_t)0x00010000)
@@ -109,7 +109,7 @@
 /* CSR register bit mask */
 #define CSR_RMVF_Set              ((volatile uint32_t)0x01000000)
 
-#if defined (air32F10X_LD_VL) || defined (air32F10X_MD_VL) || defined (air32F10X_HD_VL) || defined (air32F10X_CL) 
+#if defined (air32F10X_LD_VL) || defined (air32F10X_MD_VL) || defined (air32F10X_HD_VL) || defined (air32F10X_CL)
 /* CFGR2 register bit mask */
  #define CFGR2_PREDIV1SRC         ((volatile uint32_t)0x00010000)
  #define CFGR2_PREDIV1            ((volatile uint32_t)0x0000000F)
@@ -118,7 +118,7 @@
  #define CFGR2_PREDIV2            ((volatile uint32_t)0x000000F0)
  #define CFGR2_PLL2MUL            ((volatile uint32_t)0x00000F00)
  #define CFGR2_PLL3MUL            ((volatile uint32_t)0x0000F000)
-#endif /* air32F10X_CL */ 
+#endif /* air32F10X_CL */
 
 /* RCC Flag Mask */
 #define FLAG_Mask                 ((volatile uint8_t)0x1F)
@@ -137,24 +137,24 @@
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup RCC_Private_Macros
   * @{
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
 /** @defgroup RCC_Private_Variables
   * @{
-  */ 
+  */
 
 static __I uint8_t APBAHBPrescTable[16] = {0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
 static __I uint8_t ADCPrescTable[4] = {2, 4, 6, 8};
 
-typedef enum 
+typedef enum
 {
 	FLASH_Div_0 = 0,
 	FLASH_Div_2 = 1,
@@ -167,14 +167,14 @@ typedef enum
 #define SysFreq_Set		(*((void (*)(uint32_t, FlashClkDiv , uint8_t, uint8_t))(*(uint32_t *)0x1FFFD00C)))
 
 uint32_t AIR_RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t RCC_PLLMul, uint8_t Latency)
-{	
+{
 	volatile uint32_t sramsize = 0;
 	uint32_t pllmul = 0;
 	FunctionalState pwr_gating_state = 0;
 	/* Check the parameters */
 	assert_param(IS_RCC_PLL_SOURCE(RCC_PLLSource));
 	assert_param(IS_RCC_PLL_MUL(RCC_PLLMul));
-	
+
 	*(volatile uint32_t *)(0x400210F0) = BIT(0);//开启sys_cfg门控
 	*(volatile uint32_t *)(0x40016C00) = 0xa7d93a86;//解一、二、三级锁
 	*(volatile uint32_t *)(0x40016C00) = 0xab12dfcd;
@@ -182,10 +182,10 @@ uint32_t AIR_RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t RCC_PLLMul, uint8_t 
 	sramsize = *(volatile uint32_t *)(0x40016C18);
 	*(volatile uint32_t *)(0x40016C18) = 0x200183FF;//配置sram大小, 将BOOT使用对sram打开
 	*(volatile uint32_t *)(0x4002228C) = 0xa5a5a5a5;//QSPI解锁
-	
+
 	SysFreq_Set(RCC_PLLMul,Latency ,0,1);
 	RCC->CFGR = (RCC->CFGR & ~0x00030000) | RCC_PLLSource;
-	
+
 	//恢复配置前状态
 	*(volatile uint32_t *)(0x40016C18) = sramsize;
 	*(volatile uint32_t *)(0x400210F0) = 0;//开启sys_cfg门控
@@ -193,7 +193,7 @@ uint32_t AIR_RCC_PLLConfig(uint32_t RCC_PLLSource, uint32_t RCC_PLLMul, uint8_t 
 	*(volatile uint32_t *)(0x40016C00) = ~0xab12dfcd;
 	*(volatile uint32_t *)(0x40016C00) = ~0xcded3526;
 	*(volatile uint32_t *)(0x4002228C) = ~0xa5a5a5a5;//QSPI解锁
-	
-	
+
+
 	return 1;
 }
